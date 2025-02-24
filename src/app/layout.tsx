@@ -4,7 +4,7 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { AuthContextProvider } from "./context/AuthContext";
 import { Toaster } from "@/components/ui/toaster"
-
+import { ThemeProvider } from "@/components/theme-provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,29 +22,27 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-
-
-      <SessionProvider>
-
-        <AuthContextProvider>
-
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-          >
-            {children}
-            <Toaster />
-
-          </body>
-        </AuthContextProvider>
-
-
-      </SessionProvider>
-
+      <body>
+        <SessionProvider>
+          <AuthContextProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem={false}
+              disableTransitionOnChange
+            >
+                {children}
+        
+              <Toaster />
+            </ThemeProvider>
+          </AuthContextProvider>
+        </SessionProvider>
+      </body>
     </html>
   );
 }

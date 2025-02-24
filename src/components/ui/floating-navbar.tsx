@@ -12,6 +12,7 @@ import Logo from '../../../public/logo.png'
 import { useSession } from "next-auth/react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { img } from "framer-motion/client";
+import { NavigationMenuDemo as Menubar } from "./menu-bar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -87,29 +88,16 @@ export const FloatingNav = ({
           <img src={Logo.src} className="w-20" alt="" />
           <h2 className="font-blod text-white text-[20px]">TENDRRA</h2>
         </div>
-        <div className="flex items-center gap-16">
-          {navItems.map((navItem: any, idx: number) => (
-            <Link
-              key={`link=${idx}`}
-              href={navItem.link}
-              className={cn(
-                "flex items-center justify-center"
-              )}
-            >
-              <span className="block sm:hidden">{navItem.icon}</span>
-              {/* add !cursor-pointer */}
-              {/* remove hidden sm:block for the mobile responsive */}
-              <span className=" text-[16px] uppercase !cursor-pointer text-white">{navItem.name}</span>
-            </Link>
-          ))}
-        </div>
+   
+          <Menubar/>
+     
         <div>
           {session ? (
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar>
                   <AvatarImage src={`${session?.user?.image}`} alt="@shadcn" />
-                
+
                 </Avatar>
 
               </DropdownMenuTrigger>
@@ -124,7 +112,7 @@ export const FloatingNav = ({
             </DropdownMenu>
 
           ) : (
-            <Link href={'/sing-up'} className="inline-flex h-10 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 text-sm text-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+            <Link href={'/sign-up'} className="inline-flex h-10 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 text-sm text-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
               GET STARTERD
             </Link>
           )

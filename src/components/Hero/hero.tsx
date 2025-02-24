@@ -3,6 +3,7 @@ import { Spotlight } from "../ui/Spotlight";
 import { div } from "framer-motion/client";
 import { FloatingNav } from "../ui/floating-navbar";
 import { SparklesCore } from "../ui/sparkles";
+import { Button } from "../ui/moving-border";
 
 export function Hero() {
   return (
@@ -41,10 +42,10 @@ export function Hero() {
             Starts Here
           </h1>
           <p className="text-white text-2xl text-center">Web design, marketing solutions, <br/>and ready-to-use templates to help your business thrive in the digital world.</p>
+        
         </div>
 
-
-
+      
       </div>
     </div>
   );

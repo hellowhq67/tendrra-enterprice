@@ -16,9 +16,10 @@ import {
 } from "lucide-react"
 
 import { NavMain } from "@/components/Dashboard/nav-main"
-import { NavProjects } from "@/components/Dashboard/nav-projects"
 import { NavSecondary } from "@/components/Dashboard/nav-secondary"
 import { NavUser } from "@/components/Dashboard/nav-user"
+import { randomUUID, UUID } from "crypto"
+import { v4 } from "uuid"
 import {
   Sidebar,
   SidebarContent,
@@ -28,7 +29,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-
+const id = v4()
 const data = {
   
   navMain: [
@@ -39,13 +40,10 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "Create New Chat",
-          url: "#",
+          title: "Research",
+          url: `/research`,
         },
-        {
-          title: "History",
-          url: "#",
-        },
+        
  
         
       ],
@@ -56,13 +54,10 @@ const data = {
       icon: Bot,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "Lead Gen",
+          url: "/dashboard/agents/lead",
         },
-        {
-          title: "Explorer",
-          url: "#",
-        },
+      
         {
           title: "Quantum",
           url: "#",
@@ -163,7 +158,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-      
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

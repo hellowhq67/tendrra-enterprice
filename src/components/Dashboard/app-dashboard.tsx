@@ -38,7 +38,7 @@ export default function Dashboard() {
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
             <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div className="rounded-xl bg-[#09090b] flex   items-start justify-between  gap-2 p-4">
+                <div className="rounded-xl bg-muted/50 flex   items-start justify-between  gap-2 p-4">
                     <div className='flex  flex-col items-start gap-2'>
                         <BotMessageSquare className='text-purple-500 size-8' />
                         <h2 className='text-gray-400 text-md'>Available Agents</h2>
@@ -48,7 +48,7 @@ export default function Dashboard() {
                         Active
                     </div>
                 </div>
-                <div className="rounded-xl bg-[#09090b] flex   items-start justify-between  gap-2 p-4">
+                <div className="rounded-xl bg-muted/50 flex   items-start justify-between  gap-2 p-4">
                     <div className='flex  flex-col items-start gap-2'>
                         <ChartCandlestickIcon className='size-8 text-green-500' />
                         <h2 className='text-gray-400 text-md'>Available Token</h2>
@@ -56,7 +56,7 @@ export default function Dashboard() {
                     </div>
 
                 </div>
-                <div className="rounded-xl bg-[#09090b] flex   items-start justify-between  gap-2 p-4">
+                <div className="rounded-xl bg-muted/50 flex   items-start justify-between  gap-2 p-4">
                     <div className='flex  flex-col items-start gap-2'>
                         <BadgeDollarSignIcon className='text-orange-500 size-8' />
 
