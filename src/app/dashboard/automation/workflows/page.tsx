@@ -1,4 +1,6 @@
-'use client'
+// app/page.tsx
+"use client"
+
 import { Settings } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
@@ -24,6 +26,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { TeamManagement } from "@/components/account/team-management"
 
 export default function Page() {
   const [configOpen, setConfigOpen] = React.useState(false)
@@ -64,6 +67,7 @@ export default function Page() {
           <TabsTrigger value="auto-reply">Auto-Reply</TabsTrigger>
           <TabsTrigger value="templates">Templates</TabsTrigger>
           <TabsTrigger value="accounts">Connected Accounts</TabsTrigger>
+          <TabsTrigger value="team">Team Management</TabsTrigger>
         </TabsList>
         <TabsContent value="workflows" className="space-y-4">
           <WorkflowBuilder />
@@ -76,6 +80,9 @@ export default function Page() {
         </TabsContent>
         <TabsContent value="accounts" className="space-y-4">
           <ConnectedAccounts />
+        </TabsContent>
+         <TabsContent value="team" className="space-y-4">
+          <TeamManagement />
         </TabsContent>
       </Tabs>
 
