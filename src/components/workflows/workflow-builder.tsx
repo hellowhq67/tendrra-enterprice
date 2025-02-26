@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 
 // Add these imports at the top
-import { useWorkflow } from "../../hooks/use-workflow"
+import { useWorkflow } from "@/hooks/use-workflow"
 import { WorkflowConfigDialog } from "./workflow-config-dialog"
 
 interface WorkflowStep {
