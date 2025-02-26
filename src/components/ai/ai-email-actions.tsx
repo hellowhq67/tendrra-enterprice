@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "../../hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 
 interface EmailActionsProps {
   email: {
