@@ -13,7 +13,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-import { useAccount } from "../../hooks/use-account"
+import { useAccount } from "@/hooks/use-account"
 
 const accounts = [
   {
