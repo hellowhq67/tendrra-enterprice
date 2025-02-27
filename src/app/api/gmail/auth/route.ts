@@ -1,13 +1,8 @@
-import { auth } from "@/auth";
+
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const session = await auth();
-
-  if (!session || !session.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+  
   const redirectUri = encodeURIComponent("http://tenddra.com/api/gmail/callback"); // Change to your domain in production
   const clientId = process.env.GMAIL_CLIENT_ID;
   const scope = "https://www.googleapis.com/auth/gmail.readonly";
