@@ -29,7 +29,7 @@ export function GmailConnect() {
   }
 
   return (
-    <Button onClick={handleConnect} disabled={isLoading}>
+    <Button onClick={connectGmail} disabled={isLoading}>
       <Mail className="mr-2 h-4 w-4" />
       {isLoading ? "Connecting..." : "Connect Gmail"}
     </Button>
