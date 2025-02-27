@@ -1,33 +1,25 @@
-import { NextResponse } from "next/server"
-import { getOAuth2Client } from "@/lib/google/auth"
-import { listEmails } from "@/lib/google/gmail"
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
-export async function GET(request: Request) {
+export async function GET() {
+  const accessToken = cookies().get("gmail_access_token")?.value;
+
+  if (!accessToken) {
+    return NextResponse.json({ error: "No Gmail access token found" }, { status: 401 });
+  }
+
   try {
-    const { searchParams } = new URL(request.url)
-    const maxResults = Number.parseInt(searchParams.get("maxResults") || "20")
-    const query = searchParams.get("query") || ""
-    const labelIds = searchParams.get("labelIds")?.split(",") || ["INBOX"]
+    const response = await fetch("https://www.googleapis.com/gmail/v1/users/me/messages", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
-    // In a real app, get tokens from database
-    // For demo, we'll expect them in the Authorization header
-    const authHeader = request.headers.get("Authorization")
-    if (!authHeader) {
-      return NextResponse.json({ error: "No authorization token provided" }, { status: 401 })
-    }
+    if (!response.ok) throw new Error("Failed to fetch emails");
 
-    const oauth2Client = getOAuth2Client()
-    oauth2Client.setCredentials({ access_token: authHeader.split(" ")[1] })
-
-    const emails = await listEmails(oauth2Client, {
-      maxResults,
-      query,
-      labelIds,
-    })
-
-    return NextResponse.json({ emails })
+    const data = await response.json();
+    return NextResponse.json(data);
   } catch (error) {
-    console.error("List messages error:", error)
-    return NextResponse.json({ error: "Failed to list messages" }, { status: 500 })
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
