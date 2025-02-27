@@ -8,7 +8,7 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const redirectUri = encodeURIComponent("http://localhost:3000/api/gmail/callback"); // Change to your domain in production
+  const redirectUri = encodeURIComponent("http://tenddra.com/api/gmail/callback"); // Change to your domain in production
   const clientId = process.env.GMAIL_CLIENT_ID;
   const scope = "https://www.googleapis.com/auth/gmail.readonly";
   
