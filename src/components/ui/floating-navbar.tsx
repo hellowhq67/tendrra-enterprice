@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { MobileSidebar } from "./mobile-sidebar"
 
+import { SingWithGoogle,SingOut } from "@/app/actions/authAction"
 export const FloatingNav = ({
   navItems,
   className,
@@ -93,7 +94,7 @@ export const FloatingNav = ({
                 <DropdownMenuItem>{session?.user?.name}</DropdownMenuItem>
                 <DropdownMenuItem>Dashboard</DropdownMenuItem>
                 <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Sign Out</DropdownMenuItem>
+                <DropdownMenuItem onClick={SingOut}>Sign Out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
