@@ -4,11 +4,21 @@ import GoogleProvider from "next-auth/providers/google";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!, // Ensure these are defined!
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!, // Ensure these are defined!
       authorization: {
         params: {
           prompt: "consent",
           access_type: "offline",
           response_type: "code",
+          scope: [
+            "https://www.googleapis.com/auth/gmail.readonly",  // Corrected: Removed leading space
+            "https://www.googleapis.com/auth/gmail.send",      // Corrected: Removed leading space
+            "https://www.googleapis.com/auth/gmail.labels",     // Corrected: Removed leading space
+            "openid",                                            // Added: Standard OpenID Connect scopes
+            "profile",                                           // Added: Standard OpenID Connect scopes
+            "email",                                             // Added: Standard OpenID Connect scopes
+          ].join(" "), // Join the scopes into a space-separated string
         },
       },
     }),
@@ -30,7 +40,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   pages: {
-    signIn: "/sign-up",
+    signIn: "/sing-in",
   },
+
   secret: process.env.AUTH_SECRET,
 });
