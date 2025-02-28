@@ -21,12 +21,12 @@ import { useToast } from "@/hooks/use-toast"
 
 interface EmailActionsProps {
   email: {
-    name: string
-    subject: string
-    teaser: string
+    name: string | undefined;
+    subject: string | undefined;
+    teaser: string | undefined;
   }
+  
 }
-
 export function AiEmailActions({ email }: EmailActionsProps) {
   const [isGenerating, setIsGenerating] = React.useState(false)
   const [generatedReply, setGeneratedReply] = React.useState("")
