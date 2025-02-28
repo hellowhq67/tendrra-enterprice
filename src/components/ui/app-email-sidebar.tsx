@@ -1,10 +1,22 @@
-"use client"
+// AppSidebar.tsx
+"use client";
 
-import * as React from "react"
-import { ArchiveX, Command, File, Inbox, Send, Trash2, Mail, Workflow } from "lucide-react"
-
-import { NavUser } from "./nav-user"
-import { Label } from "@/components/ui/label"
+import * as React from "react";
+import {
+  ArchiveX,
+  Command,
+  File,
+  Inbox,
+  Send,
+  Trash2,
+  Mail,
+  Workflow,
+  Loader2,
+} from "lucide-react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { Session } from "next-auth"; // Import Session type from next-auth
+import { NavUser } from "./nav-user";
+import { Label } from "@/components/ui/label";
 import {
   Sidebar,
   SidebarContent,
@@ -17,18 +29,153 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
-import { Switch } from "@/components/ui/switch"
-import { AiEmailActions } from "@/components/ai/ai-email-actions"
-import Link from "next/link"
-// This is sample data
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
+} from "@/components/ui/sidebar";
+import { Switch } from "@/components/ui/switch";
+import { AiEmailActions } from "@/components/ai/ai-email-actions";
+import Link from "next/link";
+
+// Define TypeScript interfaces for the Gmail API responses
+interface GmailHeader {
+  name: string;
+  value: string;
+}
+
+interface GmailMessagePayloadPart {
+  partId: string;
+  mimeType: string;
+  filename: string;
+  headers: GmailHeader[];
+  body: {
+    size: number;
+    data: string;
+  };
+  parts?: GmailMessagePayloadPart[];
+}
+
+interface GmailMessagePayload {
+  partId: string;
+  mimeType: string;
+  headers: GmailHeader[];
+  body: {
+    size: number;
+    data: string;
+  };
+  parts?: GmailMessagePayloadPart[];
+}
+
+interface GmailMessage {
+  id: string;
+  threadId: string;
+  labelIds: string[];
+  snippet: string;
+  payload: GmailMessagePayload;
+  sizeEstimate: number;
+  historyId: string;
+  internalDate: string;
+}
+
+interface GmailListResponse {
+  messages: { id: string; threadId: string }[];
+  nextPageToken?: string;
+  resultSizeEstimate: number;
+}
+
+// Define user type
+interface User {
+  name?: string | null | undefined;
+  email?: string | null | undefined;
+  image?: string | null | undefined;
+  avatar?: string | null | undefined; // Corrected property name
+  id?: string;
+  accessToken?: string;
+}
+
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: session, status } = useSession();
+  const [activeItem, setActiveItem] = React.useState({
+    title: "Inbox",
+    url: "/dashboard",
+    icon: Inbox,
+    isActive: true,
+  });
+  const [emails, setEmails] = React.useState<GmailMessage[]>([]);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const { setOpen } = useSidebar();
+
+  const handleReAuthorize = () => {
+    signIn("google", {
+      callbackUrl: window.location.href, // Redirect back to the current page after authorization
+    });
+  };
+
+  React.useEffect(() => {
+    const fetchEmails = async () => {
+      if (session?.user?.accessToken) {
+        setLoading(true);
+        setError(null);
+        try {
+          const response = await fetch(
+            `https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=10`,
+            {
+              headers: {
+                Authorization: `Bearer ${session.user.accessToken}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            if (response.status === 401) {
+              setError("Unauthorized. Please re-authenticate.");
+            } else if (response.status === 403) {
+              setError("Forbidden. You don't have permission to access this resource.");
+            } else {
+              setError(`Failed to fetch emails. Status: ${response.status}`);
+            }
+            return;
+          }
+
+          const data: GmailListResponse = await response.json();
+
+          const messageDetails = await Promise.all(
+            data.messages.map(async (message) => {
+              const messageResponse = await fetch(
+                `https://gmail.googleapis.com/gmail/v1/users/me/messages/${message.id}?format=full`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${session.user.accessToken}`,
+                  },
+                }
+              );
+              if (!messageResponse.ok) {
+                console.error(
+                  `Failed to fetch message details for ${message.id}: ${messageResponse.status}`
+                );
+                return null;
+              }
+              const messageData: GmailMessage = await messageResponse.json();
+              return messageData;
+            })
+          );
+
+          const validMessageDetails = messageDetails.filter(
+            (message): message is GmailMessage => message !== null
+          );
+
+          setEmails(validMessageDetails);
+        } catch (err) {
+          console.error("Error fetching emails:", err);
+          setError("An unexpected error occurred.");
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchEmails();
+  }, [session, activeItem]); // Refetch when the active item or session changes
+
+  const navMain = [
     {
       title: "Inbox",
       url: "/dashboard",
@@ -71,104 +218,42 @@ const data = {
       icon: Trash2,
       isActive: false,
     },
-  ],
-  mails: [
-    {
-      name: "William Smith",
-      email: "williamsmith@example.com",
-      subject: "Meeting Tomorrow",
-      date: "09:34 AM",
-      teaser:
-        "Hi team, just a reminder about our meeting tomorrow at 10 AM.\nPlease come prepared with your project updates.",
-    },
-    {
-      name: "Alice Smith",
-      email: "alicesmith@example.com",
-      subject: "Re: Project Update",
-      date: "Yesterday",
-      teaser:
-        "Thanks for the update. The progress looks great so far.\nLet's schedule a call to discuss the next steps.",
-    },
-    {
-      name: "Bob Johnson",
-      email: "bobjohnson@example.com",
-      subject: "Weekend Plans",
-      date: "2 days ago",
-      teaser:
-        "Hey everyone! I'm thinking of organizing a team outing this weekend.\nWould you be interested in a hiking trip or a beach day?",
-    },
-    {
-      name: "Emily Davis",
-      email: "emilydavis@example.com",
-      subject: "Re: Question about Budget",
-      date: "2 days ago",
-      teaser:
-        "I've reviewed the budget numbers you sent over.\nCan we set up a quick call to discuss some potential adjustments?",
-    },
-    {
-      name: "Michael Wilson",
-      email: "michaelwilson@example.com",
-      subject: "Important Announcement",
-      date: "1 week ago",
-      teaser:
-        "Please join us for an all-hands meeting this Friday at 3 PM.\nWe have some exciting news to share about the company's future.",
-    },
-    {
-      name: "Sarah Brown",
-      email: "sarahbrown@example.com",
-      subject: "Re: Feedback on Proposal",
-      date: "1 week ago",
-      teaser:
-        "Thank you for sending over the proposal. I've reviewed it and have some thoughts.\nCould we schedule a meeting to discuss my feedback in detail?",
-    },
-    {
-      name: "David Lee",
-      email: "davidlee@example.com",
-      subject: "New Project Idea",
-      date: "1 week ago",
-      teaser:
-        "I've been brainstorming and came up with an interesting project concept.\nDo you have time this week to discuss its potential impact and feasibility?",
-    },
-    {
-      name: "Olivia Wilson",
-      email: "oliviawilson@example.com",
-      subject: "Vacation Plans",
-      date: "1 week ago",
-      teaser:
-        "Just a heads up that I'll be taking a two-week vacation next month.\nI'll make sure all my projects are up to date before I leave.",
-    },
-    {
-      name: "James Martin",
-      email: "jamesmartin@example.com",
-      subject: "Re: Conference Registration",
-      date: "1 week ago",
-      teaser:
-        "I've completed the registration for the upcoming tech conference.\nLet me know if you need any additional information from my end.",
-    },
-    {
-      name: "Sophia White",
-      email: "sophiawhite@example.com",
-      subject: "Team Dinner",
-      date: "1 week ago",
-      teaser:
-        "To celebrate our recent project success, I'd like to organize a team dinner.\nAre you available next Friday evening? Please let me know your preferences.",
-    },
-  ],
-}
+  ];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  // Note: I'm using state to show active item.
-  // IRL you should use the url/router.
-  const [activeItem, setActiveItem] = React.useState(data.navMain[0])
-  const [mails, setMails] = React.useState(data.mails)
-  const { setOpen } = useSidebar()
+  // Safely access session.user and provide a default value
+  const user = (session?.user as User) || {
+    name: null,
+    email: null,
+    image: null,
+    avatar: null,
+    id: null,
+    accessToken: null,
+  };
+
+  // Type assertion to match NavUser's expected type
+  const navUserProps: {
+    name: string;
+    email: string;
+    avatar: string;
+  } = {
+    name: user.name || "Guest", // Provide a default value
+    email: user.email || "No email", // Provide a default value
+    avatar: user.avatar || "/default-avatar.png", // Provide a default value
+  };
 
   return (
-    <Sidebar collapsible="icon" className="overflow-hidden [&>[data-sidebar=sidebar]]:flex-row" {...props}>
+    <Sidebar
+      collapsible="icon"
+      className="overflow-hidden [&>[data-sidebar=sidebar]]:flex-row"
+      {...props}
+    >
       {/* This is the first sidebar */}
       {/* We disable collapsible and adjust width to icon. */}
       {/* This will make the sidebar appear as icons. */}
-      <Sidebar collapsible="none" className="!w-[calc(var(--sidebar-width-icon)_+_1px)] border-r">
+      <Sidebar
+        collapsible="none"
+        className="!w-[calc(var(--sidebar-width-icon)_+_1px)] border-r"
+      >
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
@@ -190,7 +275,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroup>
             <SidebarGroupContent className="px-1.5 md:px-0">
               <SidebarMenu>
-                {data.navMain.map((item) => (
+                {navMain.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       tooltip={{
@@ -198,19 +283,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         hidden: false,
                       }}
                       onClick={() => {
-                        setActiveItem(item)
-                        const mail = data.mails.sort(() => Math.random() - 0.5)
-                        setMails(mail.slice(0, Math.max(5, Math.floor(Math.random() * 10) + 1)))
-                        setOpen(true)
+                        setActiveItem(item);
+                        // Fetch new emails when an item is clicked
+                        setOpen(true);
                       }}
                       isActive={activeItem.title === item.title}
                       className="px-2.5 md:px-2"
                     >
                       <item.icon />
-                    <Link href={item.url}>
-                    <span>{item.title}</span>
-                    
-                    </Link>
+                      <Link href={item.url}>
+                        <span>{item.title}</span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -219,7 +302,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
-          <NavUser user={data.user} />
+          <NavUser user={navUserProps} />
         </SidebarFooter>
       </Sidebar>
 
@@ -228,7 +311,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
         <SidebarHeader className="gap-3.5 border-b p-4">
           <div className="flex w-full items-center justify-between">
-            <div className="text-base font-medium text-foreground">{activeItem.title}</div>
+            <div className="text-base font-medium text-foreground">
+              {activeItem.title}
+            </div>
             <Label className="flex items-center gap-2 text-sm">
               <span>Unreads</span>
               <Switch className="shadow-none" />
@@ -239,23 +324,57 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarContent>
           <SidebarGroup className="px-0">
             <SidebarGroupContent>
-              {mails.map((mail) => (
-                <div
-                  key={mail.email}
-                  className="flex flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                >
-                  <div className="flex w-full items-center gap-2">
-                    <span>{mail.name}</span> <span className="ml-auto text-xs">{mail.date}</span>
-                  </div>
-                  <span className="font-medium">{mail.subject}</span>
-                  <span className="line-clamp-2 w-[260px] whitespace-break-spaces text-xs">{mail.teaser}</span>
-                  <AiEmailActions email={mail} />
+              {status === "loading" ? (
+                <Loader2 className="animate "/>
+              ) : error ? (
+                <div>
+                  Error: {error}
+                  <button onClick={handleReAuthorize}>
+                    Re-authorize Gmail Access
+                  </button>
                 </div>
-              ))}
+              ) : emails.length > 0 ? (
+                emails.map((email) => {
+                  // Extract the required properties from the GmailMessage
+                  const name = email.payload.headers.find((header) => header.name === "From")?.value;
+                  const subject = email.payload.headers.find((header) => header.name === "Subject")?.value;
+                  const teaser = email.snippet;
+
+                  return (
+                    <div
+                      key={email.id}
+                      className="flex flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                    >
+                      <div className="flex w-full items-center gap-2">
+                        <span>
+                          {name || "Unknown Sender"}
+                        </span>
+                        <span className="ml-auto text-xs">
+                          {new Date(parseInt(email.internalDate)).toLocaleTimeString()}
+                        </span>
+                      </div>
+                      <span className="font-medium">
+                        {subject || "No Subject"}
+                      </span>
+                      <span className="line-clamp-2 w-[260px] whitespace-break-spaces text-xs">
+                        {teaser}
+                      </span>
+                      <AiEmailActions email={{ name, subject, teaser }} />
+                    </div>
+                  );
+                })
+              ) : (
+                <div>
+                  No emails found.
+                  {session && (
+                    <button onClick={handleReAuthorize}>Grant Gmail Access</button>
+                  )}
+                </div>
+              )}
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
     </Sidebar>
-  )
+  );
 }
