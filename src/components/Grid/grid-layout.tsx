@@ -27,7 +27,7 @@ const items = [
     title: "AI-Powered Business Research Playground – Tendrra.com",
     description:
       "Boost your business growth with Tendrra’s advanced AI Research Playground. Explore data-driven insights, market trends, and competitor analysis to make smart decisions faster. Ideal for business owners and content creators seeking innovation.",
-    header:"https://firebasestorage.googleapis.com/v0/b/gariled-users.appspot.com/o/out-0%20(3).webp?alt=media&token=4d249a36-5c68-404f-936e-c1ddf15b68c3" ,
+    header:<Skeleton />,
     className: "md:col-span-2 bg-black",
   },
   {
