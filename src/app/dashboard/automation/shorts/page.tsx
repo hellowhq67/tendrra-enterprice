@@ -2,16 +2,37 @@
 
 import * as React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { ScriptGenerator } from "@/components/youtube/script-genaretor"
 import { ThumbnailGenerator } from "@/components/youtube/thumbnail-gen"
 import { ImageGenerator } from "@/components/youtube/image-genaretor"
 import { AudioGenerator } from "@/components/youtube/audio-generator"
 import { VideoGenerator } from "@/components/youtube/video-generator"
 import { TranscriptGenerator } from "@/components/youtube/transcript-genaretor"
-import { ProjectContext, ProjectProvider } from "@/components/youtube/project-contenxt"
+import {
+  ProjectContext,
+  ProjectProvider,
+} from "@/components/youtube/project-contenxt"
 import { Button } from "@/components/ui/button"
-import { Download, Save, Share2, Plus, Folder, FileText, Image, Music, Video, Sparkles } from "lucide-react"
+import {
+  Download,
+  Save,
+  Share2,
+  Plus,
+  Folder,
+  FileText,
+  Image,
+  Music,
+  Video,
+  Sparkles,
+  Captions,
+} from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 import {
   Dialog,
@@ -38,6 +59,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Separator } from "@/components/ui/separator"
+import { CaptionGenerator } from "@/components/youtube/caption-generator"
 import {
   SidebarInset,
   SidebarProvider,
@@ -186,6 +208,12 @@ function YouTubeShortsContent() {
     }
   }
 
+  const handleCaptionGenerated = (
+    captions: { text: string; startFrame: number; endFrame: number }[]
+  ) => {
+    updateProject({ ...project, captions })
+  }
+
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
@@ -227,7 +255,7 @@ function YouTubeShortsContent() {
       <ProjectSummary />
 
       <Tabs defaultValue="script" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-6 bg-background/10 p-1">
+        <TabsList className="grid w-full grid-cols-7 bg-background/10 p-1">
           <TabsTrigger
             value="script"
             className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-cyan-700 data-[state=active]:text-white"
@@ -241,6 +269,13 @@ function YouTubeShortsContent() {
           >
             <Sparkles className="mr-2 h-4 w-4" />
             2. Transcript
+          </TabsTrigger>
+          <TabsTrigger
+            value="captions"
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-500 data-[state=active]:to-indigo-700 data-[state=active]:text-white"
+          >
+            <Captions className="mr-2 h-4 w-4" />
+            7. Captions
           </TabsTrigger>
           <TabsTrigger
             value="thumbnail"
@@ -270,12 +305,16 @@ function YouTubeShortsContent() {
             <Video className="mr-2 h-4 w-4" />
             6. Video
           </TabsTrigger>
+        
         </TabsList>
         <TabsContent value="script" className="space-y-4">
           <ScriptGenerator />
         </TabsContent>
         <TabsContent value="transcript" className="space-y-4">
           <TranscriptGenerator />
+        </TabsContent>
+        <TabsContent value="captions" className="space-y-4">
+          <CaptionGenerator transcript={project.transcript} onGenerate={handleCaptionGenerated} />
         </TabsContent>
         <TabsContent value="thumbnail" className="space-y-4">
           <ThumbnailGenerator />
@@ -289,6 +328,7 @@ function YouTubeShortsContent() {
         <TabsContent value="video" className="space-y-4">
           <VideoGenerator />
         </TabsContent>
+       
       </Tabs>
     </div>
   )
@@ -323,7 +363,7 @@ function ProjectSummary() {
             indicatorClassName="bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500"
           />
 
-          <div className="grid grid-cols-6 gap-4">
+          <div className="grid grid-cols-7 gap-4">
             <div className="space-y-1">
               <div className="flex justify-between items-center">
                 <p className="text-sm font-medium text-cyan-400">Script</p>
@@ -390,6 +430,19 @@ function ProjectSummary() {
                 indicatorClassName="bg-blue-500"
               />
             </div>
+            <div className="space-y-1">
+              <div className="flex justify-between items-center">
+                <p className="text-sm font-medium text-indigo-400">Captions</p>
+                <p className="text-xs text-indigo-400/70">
+                {project.progress.captions}%
+                </p>
+              </div>
+              <Progress
+                value={project.progress.captions}
+                className="h-1 bg-background/20"
+                indicatorClassName="bg-indigo-500"
+              />
+            </div>
           </div>
         </div>
       </CardContent>
@@ -432,6 +485,7 @@ function NewProjectDialog({
       images: [],
       audio: null,
       video: null,
+      captions: [],
       progress: {
         script: 0,
         transcript: 0,
@@ -440,6 +494,7 @@ function NewProjectDialog({
         audio: 0,
         video: 0,
         seo: 0,
+        captions: 0,
       },
     };
 
@@ -459,6 +514,7 @@ function NewProjectDialog({
         images: [],
         audio: null,
         video: null,
+         captions: [],
         progress: {
           script: 0,
           transcript: 0,
@@ -467,6 +523,7 @@ function NewProjectDialog({
           audio: 0,
           video: 0,
           seo: 0,
+           captions: 0,
         },
       })
 
@@ -580,6 +637,7 @@ function OpenProjectDialog({
         images: fullProject.images,
         audio: fullProject.audio,
         video: fullProject.video,
+        captions: fullProject.captions,
         progress: fullProject.progress,
       })
 
@@ -650,4 +708,3 @@ function OpenProjectDialog({
     </Dialog>
   )
 }
-
