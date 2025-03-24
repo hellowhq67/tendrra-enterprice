@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/breadcrumb"
 import { Separator } from "@/components/ui/separator"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import GmailComponent  from '@/components/email/gmail-inbox'
+
 export default function Page() {
   return (
     <SidebarProvider
