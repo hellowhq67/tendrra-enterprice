@@ -5,6 +5,8 @@ import { SessionProvider } from "next-auth/react";
 import { AuthContextProvider } from "./context/AuthContext";
 import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider";
+
+import 'prismjs/themes/prism.css';
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,6 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <meta name="google-signin-client_id" content="645686121121-5levjhqrpeg472h47ct3la2a8t96bt4j.apps.googleusercontent.com"/>
       <body>
         <SessionProvider>
           <AuthContextProvider>

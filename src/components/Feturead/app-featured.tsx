@@ -22,7 +22,7 @@ export function FeaturesSectionDemo2() {
     {
       title: "Scale your bussiness world wride ",
       description:
-        "With our blazing fast, state of the art, cutting edge, we are so back cloud servies (read AWS) - you can deploy your model in seconds.",
+        "With our blazing fast, agents and assistans of the art, cutting edge, we are so back cloud servies (read AWS) - you can deploy your model in seconds.",
       skeleton: <SkeletonFour />,
       className: "col-span-1 lg:col-span-3 border-b lg:border-none",
     },

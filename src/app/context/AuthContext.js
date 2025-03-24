@@ -28,7 +28,12 @@ export const AuthContextProvider = ({ children }) => {
             subscription: "Free", // Default subscription
             profile: "user", // Default profile
             tokens: 60000, // Default tokens
-            Agents: 6, // Default Agents
+            Agents: 6, 
+            accessToken:session.user.accessToken,
+            googelacesstoken:session.user.accessToken,
+            googelrfresahtoken:session.expires,
+            LinkdinToken:"",
+            instaToken:{type:String,default:""},
           };
 
           // Check if the user already exists

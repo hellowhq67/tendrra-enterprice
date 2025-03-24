@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 // POST - Create a new user
 export async function POST(request) {
-  const { email, name, subscription, profile, tokens, Agents } = await request.json();
+  const { email, name, subscription, profile, tokens, Agents,   accessToken,googelacesstoken,googelrfresahtoken,LinkdinToken,instaToken } = await request.json();
   await connectMongoDB();
 
   // Check if the user already exists
@@ -24,6 +24,11 @@ export async function POST(request) {
     profile,
     tokens,
     Agents,
+    accessToken,
+    googelacesstoken,
+    googelrfresahtoken,
+    LinkdinToken,
+    instaToken,
   });
 
   return NextResponse.json(

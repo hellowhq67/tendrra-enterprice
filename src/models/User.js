@@ -1,4 +1,5 @@
 import mongoose, { Schema, models } from "mongoose";
+import { type } from "node:os";
 
 // Define the schema for the User model
 const userSchema = new Schema(
@@ -10,6 +11,11 @@ const userSchema = new Schema(
     profile: { type: String, default: "user" },
     tokens: { type: Number, default: 60000 },
     Agents: { type: Number, default: 6 },
+    accessToken:{type:String,default:"" },
+    googelacesstoken:{type:String,default:""},
+    googelrfresahtoken:{type:String,default:""},
+    LinkdinToken:{type:String,default:""},
+    instaToken:{type:String,default:""},
 
   },
   { timestamps: true }

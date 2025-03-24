@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
+   
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -22,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.mjs", "src/app/api/v1/chat/route.js", "src/app/api/v1/user/route.js", "src/app/api/v1/agents/research/route.js", "src/app/api/v1/agents/lead/route.ts", "src/app/context/AuthContext.js", "src/components/Dashboard/app-sidebar", "src/models/User.js", "src/app/dashboard/agents/resarch/page.ja", "src/hooks/agentResarch.js", "src/lib/agents/agent-builder.js", "src/lib/agents/agent-builder.js", "src/lib/pinecone/pinecone-client.js", "src/lib/pinecone/pinecone-client.js", "src/lib/pinecone/pinecone-client.js", "src/models/agents/chat.js", "src/app/api/research/route.ts", "src/app/dashboard/agents/research/[id]/page.jsx", "src/app/research/page.tsx", "src/app/(chat)/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.mjs", "src/app/api/v1/chat/route.js", "src/app/api/v1/user/route.js", "src/app/api/v1/agents/research/route.js", "src/app/api/v1/agents/lead/route.ts", "src/app/context/AuthContext.js", "src/components/Dashboard/app-sidebar", "src/models/User.js", "src/app/dashboard/agents/resarch/page.ja", "src/hooks/agentResarch.js", "src/lib/agents/agent-builder.js", "src/lib/agents/agent-builder.js", "src/lib/pinecone/pinecone-client.js", "src/lib/pinecone/pinecone-client.js", "src/lib/pinecone/pinecone-client.js", "src/models/agents/chat.js", "src/app/api/research/route.ts", "src/app/dashboard/agents/research/[id]/page.jsx", "src/app/research/page.tsx", "src/app/(chat)/page.jsx", "src/app/api/auth/[...nextauth]/route.js", "src/app/api/gmail/callback/route.js", "src/app/api/gmail/connect/route.js", "src/components/email/gmail-inbox.tsx", "src/app/dashboard/automation/social-media/page.jsx", "src/app/dashboard/automation/social-media/page.js"],
   "exclude": ["node_modules"]
 }

@@ -13,48 +13,51 @@ import {
 export function FeaturesSectionDemo() {
   const features = [
     {
-      title: "Built for developers",
+      title: "AI-Driven Content Creation",
       description:
-        "Built for engineers, developers, dreamers, thinkers and doers.",
+        "Empower your creativity with AI tools designed to automate content creation, from blog posts to video scripts, enhancing productivity.",
       icon: <IconTerminal2 />,
     },
     {
-      title: "Ease of use",
+      title: "Seamless Social Media Management",
       description:
-        "It's as easy as using an Apple, and as expensive as buying one.",
+        "Schedule, manage, and automate your social media posts effortlessly with our AI-powered tools. Focus on creativity while we handle the routine.",
       icon: <IconEaseInOut />,
     },
     {
-      title: "Pricing like no other",
+      title: "Affordable, Flexible Pricing",
       description:
-        "Our prices are best in the market. No cap, no lock, no credit card required.",
+        "Get access to top-tier AI tools with a flexible pay-as-you-go pricing model. No upfront commitment, just pay for what you use.",
       icon: <IconCurrencyDollar />,
     },
     {
-      title: "100% Uptime guarantee",
-      description: "We just cannot be taken down by anyone.",
+      title: "Advanced Analytics & Insights",
+      description:
+        "Gain valuable insights into your content's performance, audience behavior, and trends with our AI-powered research tools.",
       icon: <IconCloud />,
     },
     {
-      title: "Multi-tenant Architecture",
-      description: "You can simply share passwords instead of buying new seats",
+      title: "Effortless Workflow Automation",
+      description:
+        "From content creation to email marketing, automate tedious tasks and streamline your workflow with our AI-driven platform.",
       icon: <IconRouteAltLeft />,
     },
     {
-      title: "24/7 Customer Support",
+      title: "24/7 AI-Powered Support",
       description:
-        "We are available a 100% of the time. Atleast our AI Agents are.",
+        "Our AI assistants are available 24/7 to answer your questions, provide guidance, and help you make the most out of Tendrra.",
       icon: <IconHelp />,
     },
     {
-      title: "Money back guarantee",
+      title: "Customizable Tools for Creators",
       description:
-        "If you donot like EveryAI, we will convince you to like us.",
+        "Tailor Tendrra's tools to fit your unique needs. Whether you're a content creator or business owner, our platform adapts to your workflow.",
       icon: <IconAdjustmentsBolt />,
     },
     {
-      title: "And everything else",
-      description: "I just ran out of copy ideas. Accept my sincere apologies",
+      title: "Join the Tendrra Community",
+      description:
+        "Connect with like-minded creators and businesses. Share ideas, collaborate, and grow together with Tendrra's powerful community tools.",
       icon: <IconHeart />,
     },
   ];

@@ -6,8 +6,9 @@ import React from "react";
 
 export default function page() {
   const { data: session } = useSession();
+
   if (session) {
-    redirect("/");
+    redirect("/dashboard");
   }
   return (
     <div className="flex min-h-svh flex-col items-center justify-center bg-muted p-6 md:p-10">

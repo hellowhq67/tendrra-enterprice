@@ -49,6 +49,29 @@ const data = {
       ],
     },
     {
+      title: "Email Workflow",
+      url: "/dashboard",
+      icon: SquareTerminal,
+      isActive: true,
+      items: [
+        {
+          title: "Email Dashboard",
+          url: `/dashboard/automation`,
+        },
+        {
+          title: "Inbox",
+          url: `/dashboard/automation/email`,
+        },
+        {
+          title: "Automation",
+          url: `/dashboard/automation/workflows`,
+        },
+        
+ 
+        
+      ],
+    },
+    {
       title: "Agents",
       url: "#",
       icon: Bot,
