@@ -1,4 +1,3 @@
-
 import Dashboard from "@/components/Dashboard/app-dashboard"
 import { AppSidebar } from "@/components/Dashboard/app-sidebar"
 import {
@@ -197,46 +196,4 @@ export default function Page() {
     </SidebarProvider>
   )
 }
-
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between border-b pb-4">
-                    <div>
-                      <p className="text-sm font-medium">Response Time</p>
-                      <p className="text-xs text-muted-foreground">Average AI response generation</p>
-                    </div>
-                    <p className="text-2xl font-bold">1.2s</p>
-                  </div>
-                  <div className="flex items-center justify-between border-b pb-4">
-                    <div>
-                      <p className="text-sm font-medium">Accuracy Rate</p>
-                      <p className="text-xs text-muted-foreground">Based on user feedback</p>
-                    </div>
-                    <p className="text-2xl font-bold">94%</p>
-                  </div>
-                  <div className="flex items-center justify-between border-b pb-4">
-                    <div>
-                      <p className="text-sm font-medium">Training Sessions</p>
-                      <p className="text-xs text-muted-foreground">This month</p>
-                    </div>
-                    <p className="text-2xl font-bold">156</p>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium">AI Credits Used</p>
-                      <p className="text-xs text-muted-foreground">Monthly quota</p>
-                    </div>
-                    <p className="text-2xl font-bold">67%</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-      </Tabs>
-    </div>
-      </SidebarInset>
-    </SidebarProvider>
-  )
-}
-
 
