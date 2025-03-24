@@ -4,7 +4,7 @@ import { FloatingNav } from "@/components/ui/floating-navbar";
 import { Tabs } from "@/components/ui/tabs";
 import { navItems } from "@/data";
 import { FeaturesSectionDemo } from "@/components/Feturead/feature";
-import { FeaturesSectionDemo2 } from "@/components/Feturead/app-featured";
+
 import React from "react";
 import { HeroParallaxDemo } from "@/components/Hero/heroperalax";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
