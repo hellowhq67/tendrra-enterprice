@@ -31,7 +31,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ images });
 
   } catch (error: any) {
-    console.error("Replicate API Error:", error);
-    return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
+    
   }
 
