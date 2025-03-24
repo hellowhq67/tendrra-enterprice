@@ -25,7 +25,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { GmailConnect } from "@/components/email/gmail-connect"
+
 
 export default function Page() {
   const [configOpen, setConfigOpen] = React.useState(false)
