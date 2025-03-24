@@ -10,11 +10,8 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
-<<<<<<< HEAD
-import { useToast } from "../../hooks/use-toast"
-=======
+
 import { useToast } from "@/hooks/use-toast"
->>>>>>> 157dbbd44305f033179137915d3429a7d0bed63c
 
 interface Rule {
   id: string
