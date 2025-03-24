@@ -1,4 +1,3 @@
-
 import Replicate from "replicate";
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -35,5 +34,4 @@ export async function POST(req: NextRequest) {
     console.error("Replicate API Error:", error);
     return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
   }
-
 }
