@@ -59,7 +59,8 @@ export default function Page() {
           <Settings className="mr-2 h-4 w-4" />
           Configure Automation
         </Button>
-        <GmailConnect/>
+
+        
       </div>
       <Tabs defaultValue="workflows" className="space-y-4">
         <TabsList>
