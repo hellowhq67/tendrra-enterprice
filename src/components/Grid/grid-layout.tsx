@@ -24,32 +24,31 @@ const Skeleton = () => (
 );
 const items = [
   {
-    title: "The Dawn of Innovation",
-    description: "Explore the birth of groundbreaking ideas and inventions.",
-    header: <Skeleton />,
-    className: "md:col-span-2 bg-black",
-   
-  },
-  {
-    title: "The Digital Revolution",
-    description: "Dive into the transformative power of technology.",
-    header: <Skeleton />,
-    className: "md:col-span-1 bg-black",
-   
-  },
-  {
-    title: "The Art of Design",
-    description: "Discover the beauty of thoughtful and functional design.",
-    header: <Skeleton />,
-    className: "md:col-span-1 bg-black",
-   
-  },
-  {
-    title: "The Power of Communication",
+    title: "AI-Powered Business Research Playground – Tendrra.com",
     description:
-      "Understand the impact of effective communication in our lives.",
+      "Boost your business growth with Tendrra’s advanced AI Research Playground. Explore data-driven insights, market trends, and competitor analysis to make smart decisions faster. Ideal for business owners and content creators seeking innovation.",
+    header:<Skeleton />,
+    className: "md:col-span-2 bg-black",
+  },
+  {
+    title: "B2B Lead Generation Agent – Automate Client Acquisition",
+    description:
+      "Tendrra’s B2B Lead Generation AI Agent helps you discover high-converting leads with zero manual effort. Find, qualify, and reach potential clients effortlessly. Best for sales teams, startups, and growth-focused businesses.",
+    header: <Skeleton />,
+    className: "md:col-span-1 bg-black",
+  },
+  {
+    title: "AI Shorts Generator for YouTube – Create Viral Content Instantly",
+    description:
+      "Create engaging YouTube Shorts in seconds with Tendrra’s AI-powered video generator. Perfect for content creators, influencers, and marketers looking to grow YouTube presence and engagement through smart automation.",
+    header: <Skeleton />,
+    className: "md:col-span-1 bg-black",
+  },
+  {
+    title: "Email Automation & AI-Powered Social Media Marketing",
+    description:
+      "Tendrra’s AI agents help you automate LinkedIn and Instagram posts, send direct messages (DMs), and manage personalized email campaigns. Save time and drive better engagement with intelligent marketing automation.",
     header: <Skeleton />,
     className: "md:col-span-2 bg-black",
-   
   },
 ];

@@ -19,14 +19,21 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 157dbbd44305f033179137915d3429a7d0bed63c
 interface EmailActionsProps {
   email: {
     name: string | undefined;
     subject: string | undefined;
     teaser: string | undefined;
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 157dbbd44305f033179137915d3429a7d0bed63c
 }
 export function AiEmailActions({ email }: EmailActionsProps) {
   const [isGenerating, setIsGenerating] = React.useState(false)
