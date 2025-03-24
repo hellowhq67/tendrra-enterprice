@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 "use client"
 
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from "lucide-react"
@@ -97,7 +97,7 @@ export function NavUser({
     </SidebarMenu>
   )
 }
-=======
+
 "use client"
 
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from "lucide-react"
@@ -196,4 +196,3 @@ export function NavUser({
     </SidebarMenu>
   )
 }
->>>>>>> 157dbbd44305f033179137915d3429a7d0bed63c
