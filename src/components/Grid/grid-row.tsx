@@ -2,7 +2,7 @@ import React from "react";
 
 export function GridRow() {
   return <>
-  <div className="mt-4 flex flex-col items-center justify-center w-full p-10">
+  <div className="mt-4 flex flex-col items-center justify-center w-full p-10 flex-wrap h-full ">
     <h1 className="text-[2rem]">Powred And Trusted With Top Technolgy</h1>
 
     <div className="flex items-center gap-20">
