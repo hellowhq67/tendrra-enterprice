@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { IconGrowth } from "@tabler/icons-react";
 export function GlowingEffectDemo() {
   return (
-    <div className="h-screen mt-10">
+    <div className="h-full mt-10">
   <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-3 lg:gap-4 xl:max-h-[34rem] xl:grid-rows-2">
     <GridItem
       area="md:[grid-area:1/1/2/7] xl:[grid-area:1/1/2/5]"
